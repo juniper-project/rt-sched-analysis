@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<juniper>
+<application name="MyApplication">
+	<softwareModel>
+		<program javaClass="eu.juniper.casestudies.myapplication.Sender">
+			<requestResponseStream id="4b9dffbe-ece9-4dbd-b98d-9f81baf966f3"
+				name="twitterStream" requiresResponse="false">
+				<rtSpecification>
+					<relDl>400</relDl>
+					<occKind period="100"/>
+				</rtSpecification>
+			</requestResponseStream>
+		</program>
+		<program javaClass="eu.juniper.casestudies.myapplication.Receiver">
+			<communicationChannel
+				interface="eu.juniper.casestudies.myapplication.IReceiver"
+				operation="send" requiresResponse="true" />
+		</program>
+		<binding interface="eu.juniper.casestudies.myapplication.IReceiver"
+			provider="eu.juniper.casestudies.myapplication.Receiver" requirer="eu.juniper.casestudies.myapplication.Sender" />
+	</softwareModel>
+	<schedModel>
+		<schedNode hwClass="bigMachine" ip="127.0.0.1" name="cpunode1">
+			<cpu id="e3dfecd1-5816-44b8-8535-e29cd1ccee30" />
+			<cpu id="e3dfecd1-5816-44b8-8535-e29cd1ccee31" />
+		</schedNode>
+		<schedNode hwClass="bigMachine" ip="127.0.0.1" name="cpunode2">
+			<cpu id="e3dfecd1-5816-44b8-8535-e29cd1ccee32" />
+			<cpu id="e3dfecd1-5816-44b8-8535-e29cd1ccee33" />
+		</schedNode>
+		<schedNode hwClass="" ip="" name="disknode">
+			<disk id="e3dfecd1-5816-44b8-8535-e29cd1ccee34" />
+		</schedNode>
+		<schedNode hwClass="" ip="" name="netnode">
+			<net id="e3dfecd1-5816-44b8-8535-e29cd1ccee35" />
+		</schedNode>
+	</schedModel>
+	<behaviorModel>
+		<behaviorSpecification id="0c8e9e58-c208-4147-8ac7-aafa22f60e0c">
+			<chunk id="65304651-a2f5-4946-9c1d-2565e64d0ace" program="eu.juniper.casestudies.myapplication.Sender"
+			       schedNode="disknode">
+				<successor id="85eafd2b-ecc0-412c-9516-2c05d997fb93" />
+				<rtSpecification priority="10">
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+			<chunk id="85eafd2b-ecc0-412c-9516-2c05d997fb93" program="eu.juniper.casestudies.myapplication.Receiver"
+			       schedNode="cpunode1">
+				<successor id="85eafd2b-ecc0-412c-9516-2c05d997fb94" />
+				<rtSpecification priority="11">
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+			<chunk id="85eafd2b-ecc0-412c-9516-2c05d997fb94" program="eu.juniper.casestudies.myapplication.Receiver"
+			       schedNode="netnode">
+				<successor id="85eafd2b-ecc0-412c-9516-2c05d997fb95" />
+				<rtSpecification priority="10">
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+			<chunk id="85eafd2b-ecc0-412c-9516-2c05d997fb95" program="eu.juniper.casestudies.myapplication.Receiver"
+			       schedNode="cpunode2">
+				<successor id="85eafd2b-ecc0-412c-9516-2c05d997fb96" />
+				<rtSpecification priority="11">
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+			<chunk id="85eafd2b-ecc0-412c-9516-2c05d997fb96" program="eu.juniper.casestudies.myapplication.Receiver"
+			       schedNode="disknode">
+				<rtSpecification>
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+		</behaviorSpecification>
+	</behaviorModel>
+</application>
+<application name="MyApplication">
+	<softwareModel>
+		<program javaClass="eu.juniper.casestudies.myapplication.Sender">
+			<requestResponseStream id="4b9dffbe-ece9-4dbd-b98d-9f81baf966f3"
+				name="twitterStream" requiresResponse="false">
+				<rtSpecification>
+					<relDl>400</relDl>
+					<occKind period="100"/>
+				</rtSpecification>
+			</requestResponseStream>
+		</program>
+		<program javaClass="eu.juniper.casestudies.myapplication.Receiver">
+			<communicationChannel
+				interface="eu.juniper.casestudies.myapplication.IReceiver"
+				operation="send" requiresResponse="true" />
+		</program>
+		<binding interface="eu.juniper.casestudies.myapplication.IReceiver"
+			provider="eu.juniper.casestudies.myapplication.Receiver" requirer="eu.juniper.casestudies.myapplication.Sender" />
+	</softwareModel>
+	<schedModel>
+		<schedNode hwClass="bigMachine" ip="127.0.0.1" name="othercpunode">
+			<cpu id="e3dfecd1-5816-44b8-8535-e29cd1ccee30" />
+		</schedNode>
+	</schedModel>
+	<behaviorModel>
+		<behaviorSpecification id="0c8e9e58-c208-4147-8ac7-aafa22f60e0c">
+			<chunk id="65304651-a2f5-4946-9c1d-2565e64d0ace" program="eu.juniper.casestudies.myapplication.Sender"
+			       schedNode="othercpunode">
+				<successor id="85eafd2b-ecc0-412c-9516-2c05d997fb93" />
+				<rtSpecification priority="10">
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+			<chunk id="85eafd2b-ecc0-412c-9516-2c05d997fb93" program="eu.juniper.casestudies.myapplication.Receiver"
+			       schedNode="othercpunode">
+				<rtSpecification priority="10">
+					<relDl best="2" value="5" worst="10" prob="1.0" />
+				</rtSpecification>
+			</chunk>
+		</behaviorSpecification>
+	</behaviorModel>
+</application>
+</juniper>
