@@ -1,3 +1,13 @@
-Prerequisites:
+The Real-time Scheduling Analyser implements Response-Time Analysis
+of applications modelled by Directed Acyclic Graphs.
+Nodes in a graph represent computations (e.g., CPU, I/O), while edges
+represent precedence constraints among these computations.                                 
+It can be used both as a stand-alone command line tool or integrated
+within the JUNIPER MDE Enrivonment.
 
-sudo apt-get install libxml2-dev
+Prerequisites: it requires the development support for libxml2. In
+Debian distribution the required package is libxml2-dev.
+                                                                                 
+The Real-Time Scheduling Analyser is licensed under the GNU Public
+License version 2; for details please refer to the license file in
+this repository.
